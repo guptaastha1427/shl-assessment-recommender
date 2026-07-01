@@ -16,7 +16,8 @@
     --border: rgba(255, 255, 255, 0.04);
     
     --ai-bubble: #0f0f0f;
-    --user-bubble: linear-gradient(135deg, #ffffff 0%, #d9d9d9 100%);
+    /* --user-bubble: linear-gradient(135deg, #ffffff 0%, #d9d9d9 100%); */
+    --user-bubble: #272626;
     --card-bg: rgba(255, 255, 255, 0.02);
     --card-border: rgba(255, 255, 255, 0.05);
     
@@ -344,8 +345,8 @@ body {
 }
 
 .user .avatar {
-    background: var(--accent-gradient);
-    color: #000;
+    background: var(--accent); /* single color instead of gradient */
+    color: white;
 }
 
 .message-content {
@@ -388,11 +389,25 @@ body {
     margin-bottom: 6px;
 }
 
-.user .bubble {
+/* .user .bubble {
     background: var(--user-bubble);
     border-top-right-radius: 4px;
+} */
+
+.user .bubble {
+    background: var(--user-bubble);
+    color: var(--text-main); /* keep white text for contrast */
 }
 
+.input-container textarea {
+    color: var(--text-main); /* explicit white text */
+    background-color: transparent; /* keeps the dark container visible */
+}
+
+/* If the input container itself ever becomes white, force a dark bg */
+.input-container {
+    background-color: var(--bg-secondary);
+}
 /* Recommendations Layout */
 .recommendations-container {
     display: grid;
