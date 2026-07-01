@@ -346,7 +346,7 @@ body {
 
 .user .avatar {
     background: var(--accent); /* single color instead of gradient */
-    color: white;
+    color: #1a1a1a;
 }
 
 .message-content {
@@ -997,22 +997,3 @@ textarea::placeholder {
     font-weight: 600;
     background: rgba(255,255,255,0.01);
 }
-
-.compare-table th:first-child {
-    width: 150px;
-}
-
-.compare-table tr:hover td {
-    background: rgba(255,255,255,0.01);
-}
-
-.compare-table td {
-    line-height: 1.5;
-}
-
-.compare-empty-state {
-    display: none;
-    flex-direction: column;
-}
-
-/* end of file */
