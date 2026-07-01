@@ -401,7 +401,7 @@ body {
 
 .input-container textarea {
     color: var(--text-main); /* explicit white text */
-    background-color: transparent; /* keeps the dark container visible */
+    background-color: rgba(255, 255, 255, 0.04); /* slightly lighter background for placeholder */
 }
 
 /* If the input container itself ever becomes white, force a dark bg */
@@ -625,7 +625,6 @@ body {
 
 textarea {
     flex: 1;
-    background: none;
     border: none;
     color: var(--text-main);
     font-family: inherit;
