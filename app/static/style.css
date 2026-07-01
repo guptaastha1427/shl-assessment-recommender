@@ -638,7 +638,7 @@ textarea {
 }
 
 textarea::placeholder {
-    color: var(--text-muted);
+    color: #e0e0e0;
 }
 
 .send-btn {
