@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHL Assessment Advisor - Premium Recommender</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                <div class="logo-text">
+                    <h2>SHL Advisor</h2>
+                    <span>Enterprise Recommender</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Role Presets</h3>
+                <div class="presets-grid">
+                    <button class="preset-btn" data-prompt="I am hiring a software engineer and I need a technical assessment to test their Java skills.">
+                        <i class="fa-brands fa-java"></i> Java Engineer
+                    </button>
+                    <button class="preset-btn" data-prompt="We are hiring for a leadership position. I need an assessment to evaluate their workplace behavior and personality traits.">
+                        <i class="fa-solid fa-user-tie"></i> Leadership Role
+                    </button>
+                    <button class="preset-btn" data-prompt="I need a general cognitive ability test that includes numerical and inductive reasoning. It needs to be under 40 minutes.">
+                        <i class="fa-solid fa-brain"></i> Cognitive (Fast)
+                    </button>
+                    <button class="preset-btn" data-prompt="I am hiring for a sales executive position. I need to test situational judgment and communication.">
+                        <i class="fa-solid fa-chart-line"></i> Sales Executive
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section tracker-section">
+                <h3><i class="fa-solid fa-filter-list"></i> Detected Context</h3>
+                <div class="context-tracker" id="contextTracker">
+                    <div class="tracker-item" id="trackRole">
+                        <span class="label">Target Role</span>
+                        <span class="value">Not specified</span>
+                    </div>
+                    <div class="tracker-item" id="trackSkills">
+                        <span class="label">Skills</span>
+                        <span class="value">None</span>
+                    </div>
+                    <div class="tracker-item" id="trackDuration">
+                        <span class="label">Max Duration</span>
+                        <span class="value">No limit</span>
+                    </div>
+                    <div class="tracker-item" id="trackRemote">
+                        <span class="label">Remote Testing</span>
+                        <span class="value">Optional</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="status-indicator">
+                    <span class="dot online"></span>
+                    <span>Gemini-powered Agent</span>
+                </div>
+                <button class="reset-btn" id="newChatBtn"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Conversation</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <header class="chat-header">
+                <div class="header-info">
+                    <h1>Conversational Assessment Recommender</h1>
+                    <p>Powered by Google Gemini & SHL Catalog Embeddings</p>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" id="compareViewBtn" title="Compare Selected Assessments">
+                        <i class="fa-solid fa-scale-balanced"></i> <span>Compare (<span id="compareCount">0</span>)</span>
+                    </button>
+                    <button class="action-btn" id="toggleCatalogBtn" title="Browse Catalog">
+                        <i class="fa-solid fa-folder-open"></i> Browse Catalog
+                    </button>
+                </div>
+            </header>
+
+            <div class="chat-history" id="chatHistory">
+                <!-- Initial Greeting -->
+                <div class="message-group ai">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-content">
+                        <div class="bubble">Hello! I'm your SHL Assessment Advisor. 
+
+I can recommend the perfect assessments from the official SHL catalog based on your role requirements, target skills, or testing constraints.
+
+Try clicking one of the **Role Presets** in the sidebar, or type details about your hiring needs below!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="suggestion-chips-container" id="suggestionChips">
+                <button class="chip" data-prompt="Show me cognitive ability tests.">Cognitive Tests</button>
+                <button class="chip" data-prompt="Evaluate technical programming skills.">Programming Tests</button>
+                <button class="chip" data-prompt="What personality assessments do you recommend?">Personality/Behavior</button>
+                <button class="chip" data-prompt="What assessments are remote-friendly?">Remote-Friendly</button>
+            </div>
+
+            <div class="input-area">
+                <div class="input-container">
+                    <textarea id="userInput" placeholder="E.g., I'm hiring a mid-level Java developer and want a remote test under 45 minutes..." rows="1"></textarea>
+                    <button id="sendBtn" class="send-btn" disabled><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+                <div class="disclaimer">Recommendations are mapped directly to official SHL Test Solutions.</div>
+            </div>
+        </main>
+
+        <!-- Catalog Drawer (Slide-out Right Panel) -->
+        <aside class="catalog-drawer" id="catalogDrawer">
+            <div class="drawer-header">
+                <h3>SHL Test Catalog</h3>
+                <button class="close-btn" id="closeCatalogBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="drawer-search">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="catalogSearchInput" placeholder="Search assessments...">
+                </div>
+            </div>
+            <div class="drawer-filters">
+                <span class="filter-title">Filter by Type:</span>
+                <div class="filter-tags">
+                    <label class="filter-tag"><input type="checkbox" value="A" checked> <span>Ability (A)</span></label>
+                    <label class="filter-tag"><input type="checkbox" value="P" checked> <span>Personality (P)</span></label>
+                    <label class="filter-tag"><input type="checkbox" value="K" checked> <span>Knowledge (K)</span></label>
+                    <label class="filter-tag"><input type="checkbox" value="B" checked> <span>SJT (B)</span></label>
+                    <label class="filter-tag"><input type="checkbox" value="S" checked> <span>Simulation (S)</span></label>
+                </div>
+            </div>
+            <div class="catalog-list" id="catalogList">
+                <!-- Catalog cards will be loaded here dynamically -->
+                <div class="catalog-loading">Loading catalog assessments...</div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div class="modal-overlay" id="compareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-scale-balanced"></i> Assessment Comparison</h2>
+                <button class="close-btn" id="closeCompareBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="compare-table-container">
+                    <table class="compare-table">
+                        <thead>
+                            <tr id="compareHeaders">
+                                <th>Feature</th>
+                                <!-- Dynamic headers -->
+                            </tr>
+                        </thead>
+                        <tbody id="compareBody">
+                            <!-- Dynamic comparison table rows -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="compare-empty-state" id="compareEmptyState">
+                    <i class="fa-solid fa-scale-unbalanced"></i>
+                    <p>No assessments selected for comparison. Click "Compare" on assessment cards to add them.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

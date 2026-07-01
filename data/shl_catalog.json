@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Verify G+ (General Ability)",
+    "url": "https://www.shl.com/solutions/products/product-catalog/view/verify-g-plus/",
+    "description": "Combines numerical, deductive, and inductive reasoning.",
+    "test_type": "A",
+    "duration": 36,
+    "remote_support": true,
+    "adaptive_support": true,
+    "category": "Cognitive Ability"
+  },
+  {
+    "name": "OPQ32r",
+    "url": "https://www.shl.com/solutions/products/product-catalog/view/opq32r/",
+    "description": "Occupational Personality Questionnaire for predicting workplace behavior.",
+    "test_type": "P",
+    "duration": 25,
+    "remote_support": true,
+    "adaptive_support": false,
+    "category": "Personality & Behaviour"
+  },
+  {
+    "name": "Java 8 (New)",
+    "url": "https://www.shl.com/solutions/products/product-catalog/view/java-8-new/",
+    "description": "Assesses knowledge of Java programming concepts and syntax.",
+    "test_type": "K",
+    "duration": 40,
+    "remote_support": true,
+    "adaptive_support": false,
+    "category": "Knowledge & Skills"
+  }
+]

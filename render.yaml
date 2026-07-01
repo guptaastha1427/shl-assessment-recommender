@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: shl-assessment-recommender
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false # User will provide this in the Render dashboard
+      - key: GEMINI_MODEL
+        value: "gemini-2.0-flash"
+      - key: PYTHON_VERSION
+        value: "3.11.6"
